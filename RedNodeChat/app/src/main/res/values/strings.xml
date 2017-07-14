@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">RedNodeChat</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_graphs">Graphs</string>
+</resources>

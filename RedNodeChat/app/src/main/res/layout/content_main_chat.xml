@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.robalascott.rednodechat.rednodechat.Activity.MainChatActivity"
+    tools:showIn="@layout/activity_main_chat">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="596dp"
+
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+        <TextView
+            android:id="@+id/simple_chat_logs"
+            android:layout_width="match_parent"
+            android:layout_height="128dp"
+            android:scrollbars="vertical" />
+
+        <Button
+            android:id="@+id/Host"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/Clear"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="45dp"
+            android:layout_marginRight="45dp"
+            android:text="Host"
+            tools:clickable="true" />
+
+        <Button
+            android:id="@+id/Clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/simple_chat_logs"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="97dp"
+            android:text="Clear" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/Host"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="16dp" />
+
+        <Button
+            android:id="@+id/Data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data"
+            tools:clickable="true"
+            android:layout_below="@+id/Clear"
+            android:layout_marginTop="26dp"
+            android:layout_alignRight="@+id/Clear"
+            android:layout_alignEnd="@+id/Clear"
+            android:layout_alignLeft="@+id/Clear"
+            android:layout_alignStart="@+id/Clear" />
+
+        <Button
+            android:id="@+id/Reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/Host"
+            android:layout_alignStart="@+id/Host"
+            android:layout_alignTop="@+id/Data"
+            android:text="Reset" />
+
+        <Button
+            android:id="@+id/Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/Data"
+            android:layout_alignRight="@+id/Data"
+            android:layout_marginTop="366dp"
+            android:text="Text"
+            tools:text="Text" />
+    </RelativeLayout>
+
+
+</android.support.constraint.ConstraintLayout>
