@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#4BA286"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp" >
+
+    <RelativeLayout
+        android:id="@+id/filter_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#4BA286" >
+
+        <TextView
+            android:id="@+id/filter_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/filter"
+            android:typeface="monospace"
+            android:background="#4BA286"
+            android:textColor="#D10D0D"
+            android:text="@string/filter"
+             android:textAppearance="?android:attr/textAppearanceMedium"  />
+
+        <ImageButton
+            android:id="@+id/filter"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:typeface="monospace"
+            android:layout_toRightOf="@+id/filter"
+            android:background="#4BA286"
+            android:textColor="#D10D0D"
+            android:contentDescription="@string/desc"
+            android:onClick="clickGametype" />
+ 		<TextView
+            android:id="@+id/fselect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/filter" 
+            android:background="#4BA286"
+            android:textColor="#D10D0D"
+            android:text="@string/none"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+        <TextView
+            android:id="@+id/gametype_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:typeface="monospace"
+            android:layout_below="@id/fselect" 
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/gametype"
+            android:background="#4BA286"
+            android:textColor="#D10D0D"
+            android:text="@string/type"
+            android:textAppearance="?android:attr/textAppearanceMedium"  />
+
+        <ImageButton
+            android:id="@+id/gametype"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:typeface="monospace"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/fselect" 
+            android:background="#4BA286"
+            android:contentDescription="@string/desc"
+            android:onClick="clickGametype" />
+        <TextView
+            android:id="@+id/fgame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gametype"
+            android:typeface="monospace"
+            android:background="#4BA286"
+            android:textColor="#D10D0D"
+            android:text="@string/none"
+            android:paddingBottom="5dp"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/android:list"
+        android:layout_width="match_parent"
+        android:typeface="monospace"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/filter_layout" >
+    </ListView>
+
+</RelativeLayout>

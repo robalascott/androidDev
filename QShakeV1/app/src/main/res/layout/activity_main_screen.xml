@@ -1,0 +1,71 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/mainScreen"
+    android:background="#4BA286"
+    tools:context="${packageName}.${activityClass}" >
+
+    <Button
+        android:id="@+id/newGameBT"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+  		android:textStyle="bold"
+        android:paddingTop="5dp"
+        android:typeface="monospace"
+        android:textColor="#D10D0D"
+        android:onClick="game"
+        android:background="#267058"
+        android:text="@string/new_game" />
+
+    <Button
+        android:id="@+id/conGameBT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:typeface="monospace"
+        android:layout_below="@+id/newGameBT"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:onClick="game"
+        android:textStyle="bold"
+        android:paddingTop="5dp"
+        android:textColor="#D10D0D"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:background="#267058"
+        android:text="@string/con_game" />
+    <Button
+        android:id="@+id/createGameBT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:typeface="monospace"
+        android:layout_below="@+id/conGameBT"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_marginTop="5dp"
+        android:textStyle="bold"
+        android:paddingTop="5dp"
+        android:textColor="#D10D0D"
+        android:background="#267058"
+        android:onClick="game"
+        android:text="@string/create_game" />
+    <Button
+        android:id="@+id/exitGameBT"
+        android:layout_width="match_parent"
+        android:typeface="monospace"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/createGameBT"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="?android:attr/textAppearanceMedium" 
+        android:layout_marginTop="5dp"
+        android:textStyle="bold"
+        android:paddingTop="5dp"
+        android:textColor="#D10D0D"
+        android:background="#267058"
+        android:onClick="game"
+        android:text="@string/exit_game" />
+
+</RelativeLayout>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/takephoto"
+        android:title="@string/take_pic"
+        android:showAsAction="ifRoom"
+      />
+    <item android:id="@+id/userdefault"
+        android:title="@string/default_pic"
+        android:showAsAction="ifRoom"/>
+</menu>

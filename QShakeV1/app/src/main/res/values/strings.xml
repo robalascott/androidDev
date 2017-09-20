@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">QShake</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_new_game">NewGameActivity</string>
+    <string name="new_game">New Game</string>
+    <string name="con_game">Continue Game</string>
+    <string name="exit_game">Exit</string>
+    <string name="desc">desc</string>
+    <string name="title_activity_game">GameActivity</string>
+    <string name="filter">Question</string>
+    <string name="type">Game</string>
+    <string name="none">None</string>
+    <string name="remove">-Player</string>
+    <string name="add">+Player</string>
+    <string name="filter1">Question Type:</string>
+    <string name="create_game"> Create Questions </string>
+    <string name="input"> Input New Question </string>
+    <string name="input_user"> Input New User Name </string>
+    <string name="take_pic"> Take a Picture </string>
+    <string name="default_pic"> Default Picture </string>
+    <string name="star">Star</string>
+    <string name="start">Shake to Start</string>
+</resources>
