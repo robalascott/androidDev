@@ -2,6 +2,8 @@ package com.robalascott.rednodechat.rednodechat.FSM;
 
 import android.util.Log;
 
+import com.robalascott.rednodechat.rednodechat.Encryption.Encrypt;
+
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.exceptions.WebsocketNotConnectedException;
 import org.json.JSONException;
@@ -18,11 +20,13 @@ public class StartFSM implements FSMState {
         Log.i(Constant.FSMLOG,"StartFSM");
     }
     @Override
-    public void aquiredMessage(String message,WebSocketClient wc) {
-        Log.i(Constant.FSMLOG,"StartFSM" + message);
+    public void aquiredMessage(String message,WebSocketClient wc,Encrypt encrypted) {
+        Log.i(Constant.FSMLOG,"StartFSM" + message + message.contains(Constant.START));
         if(message.contains(Constant.START)){
             fsm.setFSMState(new RecFSM(fsm));
-            this.sender(Constant.STATE,fsm.getUsername(),wc);
+            Log.i(Constant.FSMLOG,"StartFSMinside" + message);
+            this.sender(Constant.STATE,fsm.getUsername(),wc,encrypted);
+
         }
     }
 
@@ -32,13 +36,16 @@ public class StartFSM implements FSMState {
         return "Start";
     }
 
-    public void sender(String payload, String source,WebSocketClient mWebSocketClient){
+    public void sender(String payload, String source,WebSocketClient mWebSocketClient,Encrypt encrypted){
         JSONObject jsonObject = new JSONObject();
         try{
             jsonObject.put("payload",payload);
             jsonObject.put("source",source);
             String message = jsonObject.toString();
-            mWebSocketClient.send(message);
+            Log.i(Constant.FSMLOG,"StartFSMsender" + message);
+            String info =  encrypted.encrypt(message);
+            Log.i(Constant.FSMLOG,"StartFSMsender" + message + " " + info);
+            mWebSocketClient.send(info);
         }catch(WebsocketNotConnectedException n){
             Log.i("FSM","No connection error" );
         }catch (JSONException e){

@@ -2,6 +2,8 @@ package com.robalascott.rednodechat.rednodechat.FSM;
 
 import android.util.Log;
 
+import com.robalascott.rednodechat.rednodechat.Encryption.Encrypt;
+
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.exceptions.WebsocketNotConnectedException;
 import org.json.JSONException;
@@ -20,7 +22,7 @@ public class RecFSM implements FSMState {
     }
 
     @Override
-    public void aquiredMessage(String message,WebSocketClient wc) {
+    public void aquiredMessage(String message,WebSocketClient wc,Encrypt encrypted) {
         JSONObject jsonObject = null;
         String temp = null;
         try {
@@ -35,7 +37,7 @@ public class RecFSM implements FSMState {
             }else if(message.contains("@%")){
                 temp = newUser  + " **" + newpayload.substring(2,newpayload.length());
                 Log.i(Constant.FSMLOG,"Message After->" + temp );
-                this.sender(temp,fsm.getUsername(),wc);
+                this.sender(temp,fsm.getUsername(),wc,encrypted);
             }
 
         } catch (JSONException e) {
@@ -46,7 +48,6 @@ public class RecFSM implements FSMState {
     }
 
 
-
     @Override
     public String whichState() {
         return "aquired";
@@ -55,13 +56,15 @@ public class RecFSM implements FSMState {
         return (int) (System.currentTimeMillis()%10000000);
     }
 
-    public void sender(String payload, String source,WebSocketClient mWebSocketClient){
+    public void sender(String payload, String source,WebSocketClient mWebSocketClient, Encrypt encrypted){
         JSONObject jsonObject = new JSONObject();
         try{
             jsonObject.put("payload",payload);
             jsonObject.put("source",source);
             String message = jsonObject.toString();
-            mWebSocketClient.send(message);
+            String info =  encrypted.encrypt(message);
+            Log.i("RecFSM"," "+ info);
+            mWebSocketClient.send(info);
         }catch(WebsocketNotConnectedException n){
             Log.i("FSM","No connection error" );
         }catch (JSONException e){

@@ -79,12 +79,14 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("diff", diff);
         contentValues.put("dev", dev);
         db.insert(COLLECTION_TABLE_NAME, null, contentValues);
+        db.close();
         return true;
     }
 
     public int numberOfRows(){
         SQLiteDatabase db = this.getReadableDatabase();
-        int numRows = (int) DatabaseUtils.queryNumEntries(db, COLLECTION_TABLE_NAME);
+        int numRows = (int) DatabaseUtils.queryNumEntries(db, COLLECTION_TABLE_NAME);;
+        db.close();
         return numRows;
     }
     public TextView getAllDiff(TextView mTextChatLogs) {
@@ -101,6 +103,8 @@ public class DBHelper extends SQLiteOpenHelper {
             res.moveToNext();
         }
         mTextChatLogs.append("\n" +this.numberOfRows() + "Number of messages");
+        res.close();
+        db.close();
         return mTextChatLogs;
     }
 
@@ -114,6 +118,31 @@ public class DBHelper extends SQLiteOpenHelper {
             e.add(temp);
             res.moveToNext();
         }
+        res.close();
+        db.close();
         return e;
+    }
+
+    public String getAVG() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "select avg(Dbase.diff) from Dbase";
+        Cursor res =  db.rawQuery( query, null );
+
+
+        // res.moveToFirst();
+        if (res.moveToFirst()) {
+            String Temp = Integer.toString(res.getInt(0));
+            res.close();
+            db.close();
+            return Temp;
+
+        }
+        else{
+
+            res.close();
+            db.close();
+            return "Fail";
+        }
+
     }
 }

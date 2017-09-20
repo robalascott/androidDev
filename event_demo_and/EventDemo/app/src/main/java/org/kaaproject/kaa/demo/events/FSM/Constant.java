@@ -5,7 +5,8 @@ package org.kaaproject.kaa.demo.events.FSM;
  */
 
 public class Constant {
-    Constant(){};
+    Constant(){}
+
     public final static String START = "->START<-";
     public final static String Exit = "->EXIT<-";
     public final static String EXITHOST = "->EXITHOST<-";

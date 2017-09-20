@@ -19,10 +19,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.robalascott.rednodechat.rednodechat.Db.DBHelper;
+import com.robalascott.rednodechat.rednodechat.Encryption.Encrypt;
 import com.robalascott.rednodechat.rednodechat.FSM.Constant;
 import com.robalascott.rednodechat.rednodechat.FSM.FSM;
 import com.robalascott.rednodechat.rednodechat.R;
 
+import org.java_websocket.client.DefaultSSLWebSocketClientFactory;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.exceptions.WebsocketNotConnectedException;
 import org.java_websocket.handshake.ServerHandshake;
@@ -30,7 +32,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Random;
+
+import javax.net.ssl.SSLContext;
 
 /**
  *  bundle message problem -> done
@@ -55,7 +60,8 @@ public class MainChatActivity extends AppCompatActivity implements  AdapterView.
     private EditText mEditTextInputMessage;
     /*Strings*/
     final String Str = "payload";
-    final String AdressRedNode =  "ws://192.168.0.12:1880/ws/chat";
+    final String AdressRedNode =  "ws://192.168.10.177:1880/ws/chat";
+    //final String AdressRedNode =  "https://192.168.0.12:1880/ws/chat";
     /*spinner*/
     final Integer[] array = {1,5,10,100,200,300,500};
     private int loop =1;
@@ -67,6 +73,7 @@ public class MainChatActivity extends AppCompatActivity implements  AdapterView.
     private  Toolbar toolbar;
     private SharedPreferences mySharedPreferences;
     private SharedPreferences.Editor myEditor;
+    private Encrypt encrypted;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +90,7 @@ public class MainChatActivity extends AppCompatActivity implements  AdapterView.
                 BarChartActivity.open(getApplicationContext(), "Test");
             }
         });
+        encrypted = new Encrypt();
         /*Chat log*/
         mTextChatLogs = (TextView) findViewById(R.id.simple_chat_logs);
         mTextChatLogs.setMovementMethod(ScrollingMovementMethod.getInstance());
@@ -109,6 +117,7 @@ public class MainChatActivity extends AppCompatActivity implements  AdapterView.
         mButtonHost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                for(int t = 0; t<12; t++ ){
                 fsm.SenderState();
                 sender(Constant.START,mUserName);
                try {
@@ -116,13 +125,26 @@ public class MainChatActivity extends AppCompatActivity implements  AdapterView.
                     for(int x = 0; x<loop; x++ ){
                         sender("@%" + String.valueOf(getTime()),mUserName);
                     }
+                   Thread.sleep(3000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-              //  fsm.sendMessage("hello");
-               //  sender(Constant.Exit,mUserName);
+                DBHelper mydb;
+                String Dbase = "DBase";
 
+                mydb = new DBHelper(getApplicationContext(),Dbase);
+                // mydb.getAllDiff(mTextChatLogs);
+                /*add avg*/
 
+                mydb.getAVG(mTextChatLogs);
+                /*Clear dbase*/
+                mydb.delete();
+                mydb.close();
+                /*reset */
+                fsm.aquiredMessage(Constant.EXITHOST,mWebSocketClient,encrypted);
+                sender(Constant.EXITHOST,mUserName);
+                Log.i("Looper","Value " + t);
+                }
 
             }
         });
@@ -135,7 +157,8 @@ public class MainChatActivity extends AppCompatActivity implements  AdapterView.
                 String Dbase = "DBase";
                 mTextChatLogs.setText(null);
                 mydb = new DBHelper(getApplicationContext(),Dbase);
-                mydb.getAllDiff(mTextChatLogs);
+               // mydb.getAllDiff(mTextChatLogs);
+                mydb.getAVG(mTextChatLogs);
                 mydb.close();
 
             }
@@ -159,10 +182,11 @@ public class MainChatActivity extends AppCompatActivity implements  AdapterView.
         mButtonText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fsm.aquiredMessage(Constant.EXITHOST,mWebSocketClient);
+                fsm.aquiredMessage(Constant.EXITHOST,mWebSocketClient,encrypted);
                 sender(Constant.EXITHOST,mUserName);
             }
         });
+
         fsm = new FSM(this,mUserName);
         fsm.StartState();
         this.connectWebsocket();
@@ -248,7 +272,14 @@ public class MainChatActivity extends AppCompatActivity implements  AdapterView.
                // new Thread(new Task(payload)).start();
 
                // mTextChatLogs.setText(mTextChatLogs.getText() + "\n" + payload);
-                             fsm.aquiredMessage(payload,mWebSocketClient);
+                final String info =  encrypted.decrypt(payload);
+
+                if(!info.isEmpty() && info != null){
+                    //Log.i("onMessage","msg " + info);
+                   // mTextChatLogs.setText(mTextChatLogs.getText() + "\n" + info + fsm.whichState());
+                    fsm.aquiredMessage(info,mWebSocketClient,encrypted);
+                }
+
 
 
                         /*    if(temp.contains(Constant.FAIL) ||temp.contains(Constant.OK) ||temp.contains(Constant.Exit)||temp.contains(Constant.REG)){
@@ -274,6 +305,16 @@ public class MainChatActivity extends AppCompatActivity implements  AdapterView.
                 Log.i(Main,"Error " + ex.getMessage());
             }
         };
+
+        if ( AdressRedNode.indexOf("wss") == 0)
+        {
+            try {
+                SSLContext sslContext = SSLContext.getDefault();
+                mWebSocketClient.setWebSocketFactory(new DefaultSSLWebSocketClientFactory(sslContext));
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+        }
         mWebSocketClient.connect();
         //sender(" + AdressRedNode);
     }
@@ -289,7 +330,12 @@ public class MainChatActivity extends AppCompatActivity implements  AdapterView.
             jsonObject.put("payload",payload);
             jsonObject.put("source",source);
             String message = jsonObject.toString();
-            mWebSocketClient.send(message);
+
+            Log.i(Main, " " + this.encrypted.encrypt(message));
+            Log.i(Main, message);
+            String message1 = this.encrypted.encrypt(message);
+            //mWebSocketClient.send(message);
+            mWebSocketClient.send(message1);
         }catch(WebsocketNotConnectedException n){
             mTextChatLogs.setText("No connection error" );
         }catch (JSONException e){

@@ -66,6 +66,7 @@ public class ChatScreenActivity extends AppCompatActivity implements Chat.Listen
     private static final int COLOR_YOU = 0xff322a61;
     private KaaChatManager mKaaChatManager;
     private String mChatName;
+    String Dbase = "DBase";
 
     /**
      * Open chat with name
@@ -93,11 +94,12 @@ public class ChatScreenActivity extends AppCompatActivity implements Chat.Listen
         setSupportActionBar(mToolbar);
         /*Spinner*/
         spinner = (Spinner) findViewById(R.id.spinner);
-        Integer[] array = {1,5,10,100,200,300,500};
+        Integer[] array = {10,100,200,300,500};
         ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(this,android.R.layout.simple_spinner_item, array);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+
         spinner.setOnItemSelectedListener(this);
 
         final ActionBar actionBar = getSupportActionBar();
@@ -114,29 +116,32 @@ public class ChatScreenActivity extends AppCompatActivity implements Chat.Listen
         mButtonHost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fsm.SenderState();
-                mButtonHost.setVisibility(View.INVISIBLE);
+                DBHelper mydb;
+                mydb = new DBHelper(getApplicationContext(), Dbase);
 
-                // send event to the subscribers
-                sender(Constant.START);
-                try {
-                    Thread.sleep(3000);
-                    for(int x = 0; x<loop; x++ ){
-                        sender(" @ " + String.valueOf(getTime()));
+                    fsm.SenderState();
+                    // send event to the subscribers
+                    sender(Constant.START);
+                    try {
+                        Thread.sleep(3000);
+                        for (int x = 0; x < loop; x++) {
 
+                            sender(" @ " + String.valueOf(getTime()));
+
+                        }
+                         /*reset */
+                        sender(Constant.Exit);
+                        fsm.aquiredMessage(Constant.Exit);
+                        Log.i("Answer",mydb.getAVG());
+
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
 
 
 
-                sender(Constant.Exit);
-                fsm.aquiredMessage(Constant.Exit);
-                mButtonHost.setVisibility(View.VISIBLE);
-
-                         }
         });
         /*Clear button*/
         mButtonClear =  findViewById(R.id.Clear);
@@ -145,6 +150,8 @@ public class ChatScreenActivity extends AppCompatActivity implements Chat.Listen
             public void onClick(View v) {
                 fsm.StartState();
                 mTextChatLogs.setText(null);
+                fsm.aquiredMessage(Constant.EXITHOST);
+                sender(Constant.EXITHOST);
 
             }
         });
@@ -154,7 +161,6 @@ public class ChatScreenActivity extends AppCompatActivity implements Chat.Listen
             @Override
             public void onClick(View v) {
                 DBHelper mydb;
-                String Dbase = "DBase";
                 mTextChatLogs.setText(null);
                 mydb = new DBHelper(getApplicationContext(),Dbase);
                 mydb.getAllDiff(mTextChatLogs);
@@ -168,7 +174,7 @@ public class ChatScreenActivity extends AppCompatActivity implements Chat.Listen
             @Override
             public void onClick(View v) {
                 DBHelper mydb;
-                String Dbase = "DBase";
+
                 mydb = new DBHelper(getApplicationContext(),Dbase);
                 Log.i(Constant.FSMLOG,"Clear2");
                 mydb.delete();
@@ -184,7 +190,7 @@ public class ChatScreenActivity extends AppCompatActivity implements Chat.Listen
                 String Dbase = "DBase";
                 Log.i(Constant.FSMLOG,"Text");
                 mydb = new DBHelper(getApplicationContext(),Dbase);
-
+                mTextChatLogs.append("\n" + mydb.getAVG());
                 mydb.close();
             }
         });
@@ -260,7 +266,7 @@ public class ChatScreenActivity extends AppCompatActivity implements Chat.Listen
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        parent.setSelection(0);
+        parent.setSelection(2);
     }
 
     private int getTime(){

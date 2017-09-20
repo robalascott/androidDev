@@ -2,6 +2,7 @@ package com.robalascott.rednodechat.rednodechat.FSM;
 
 import android.content.Context;
 import com.robalascott.rednodechat.rednodechat.Db.DBHelper;
+import com.robalascott.rednodechat.rednodechat.Encryption.Encrypt;
 
 import org.java_websocket.client.WebSocketClient;
 
@@ -35,8 +36,8 @@ public class FSM {
     public void SenderState(){
         this.fsmState = new SenderFSM(this);
     }
-    public void aquiredMessage(String message, WebSocketClient wc){
-       this.fsmState.aquiredMessage(message, wc);
+    public void aquiredMessage(String message, WebSocketClient wc, Encrypt encrypted){
+       this.fsmState.aquiredMessage(message, wc, encrypted);
     }
     public String whichState(){return fsmState.whichState();}
     public Context getContext(){return this.context;}

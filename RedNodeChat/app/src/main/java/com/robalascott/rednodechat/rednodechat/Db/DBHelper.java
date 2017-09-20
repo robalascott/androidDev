@@ -58,6 +58,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db =  this.getWritableDatabase();
         db.execSQL("DELETE FROM "+ COLLECTION_TABLE_NAME);
         Log.i(Constant.FSMLOG,"Clear");
+        db.close();
     }
 
 
@@ -70,6 +71,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("diff", diff);
         contentValues.put("dev", dev);
         db.insert(COLLECTION_TABLE_NAME, null, contentValues);
+        db.close();
         return true;
     }
 
@@ -92,6 +94,8 @@ public class DBHelper extends SQLiteOpenHelper {
             res.moveToNext();
         }
         mTextChatLogs.append("\n" +this.numberOfRows() + "Number of messages");
+        res.close();
+        db.close();
         return mTextChatLogs;
     }
 
@@ -105,6 +109,31 @@ public class DBHelper extends SQLiteOpenHelper {
             e.add(temp);
             res.moveToNext();
         }
+        res.close();
+        db.close();
         return e;
+    }
+
+    public TextView getAVG(TextView mTextChatLogs) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "select avg(Dbase.diff) from Dbase";
+        Cursor res =  db.rawQuery( query, null );
+
+
+       // res.moveToFirst();
+        if (res.moveToFirst()) {
+            mTextChatLogs.append("\n" +res.getInt(0) + " AVG");
+            res.close();
+            db.close();
+            return mTextChatLogs;
+
+        }
+        else{
+            mTextChatLogs.append("\n" + "!Fail to avg");
+            res.close();
+            db.close();
+            return mTextChatLogs;
+        }
+
     }
 }

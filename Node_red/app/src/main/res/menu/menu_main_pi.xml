@@ -1,0 +1,45 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.robalascott.noderedpi.node_red.MainPiActivity">
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_test_3"
+        android:orderInCategory="100"
+        android:title="@string/action_test_3"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_test_5"
+        android:orderInCategory="100"
+        android:title="@string/action_test_5"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_test_6"
+        android:orderInCategory="100"
+        android:title="@string/action_test_6"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_test_7"
+        android:orderInCategory="100"
+        android:title="@string/action_test_7"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_test_10"
+        android:orderInCategory="100"
+        android:title="@string/action_test_10"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_test_50"
+        android:orderInCategory="100"
+        android:title="@string/action_test_50"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_test_100"
+        android:orderInCategory="100"
+        android:title="@string/action_test_100"
+        app:showAsAction="never" />
+</menu>

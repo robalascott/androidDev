@@ -1,5 +1,7 @@
 package com.robalascott.rednodechat.rednodechat.FSM;
 
+import com.robalascott.rednodechat.rednodechat.Encryption.Encrypt;
+
 import org.java_websocket.client.WebSocketClient;
 
 /**
@@ -8,6 +10,6 @@ import org.java_websocket.client.WebSocketClient;
 
 public interface FSMState {
 
-    void aquiredMessage(String message, WebSocketClient wc);
+    void aquiredMessage(String message, WebSocketClient wc, Encrypt encrypted);
     String whichState();
 }

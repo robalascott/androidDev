@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Node_red</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_test_3">Test3</string>
+    <string name="action_test_5">Test5</string>
+    <string name="action_test_6">Test6</string>
+    <string name="action_test_7">Test7</string>
+    <string name="action_test_10">Test10</string>
+    <string name="action_test_50">Test50</string>
+    <string name="action_test_100">Test100</string>
+</resources>

@@ -35,7 +35,8 @@ public class FSM {
         return this.fsmState.aquiredMessage(message);
     }
     public String whichState(){return fsmState.whichState();}
-    public void sendMessage(String message){ fsmState.sendMessage("hello"); };
+    public void sendMessage(String message){ fsmState.sendMessage("hello"); }
+
     public Context getContext(){return this.context;}
 
 }
