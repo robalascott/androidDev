@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TodoList</string>
+    <string name="action_settings">Usage</string>
+    <string name="about_settings">About</string>
+    <string name="addTitle">Add a title</string>
+    <string name="addDescp">Add a Description</string>
+</resources>

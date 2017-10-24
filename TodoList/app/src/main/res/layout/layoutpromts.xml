@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/addTitle"
+        android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/titleInput"
+        android:layout_width="356dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleTextView"
+        android:textAlignment="center">
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/descpTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleInput"
+        android:text="@string/addDescp"
+        android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/descpInput"
+        android:layout_width="349dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center" />
+
+</LinearLayout>

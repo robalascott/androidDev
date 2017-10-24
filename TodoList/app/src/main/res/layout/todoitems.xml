@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:focusable="true"
+    android:paddingLeft="4dp"
+    android:paddingRight="4dp"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp"
+    android:orientation="horizontal"
+    android:background="@drawable/border"
+    android:layout_height="?android:attr/listPreferredItemHeight">
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="2dp"
+        android:id="@+id/idTextView"
+        android:layout_gravity="right"
+        android:layout_weight="1" />
+        />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:orientation="vertical"
+        android:gravity="right"
+        android:layout_weight="1" >
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="2dp"
+        android:id="@+id/titleTextView"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_weight="1" />
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="2dp"
+        android:id="@+id/decriptionTextView"
+        android:layout_below="@+id/ownerTextView"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_weight="1" />
+    </LinearLayout>
+</LinearLayout>
